@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.0.0-20191014"
+var VERSION = "1.1.0-20191116"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -65,6 +65,7 @@ func main() {
 	adm.HandleFunc("/keys/{key}", admDeleteKey).Methods("DELETE")
 	adm.HandleFunc("/keys", admGetKeys).Methods("GET")
 	adm.HandleFunc("/keys", admSaveKeys).Methods("PUT")
+	api.HandleFunc("/keys", apiGetKeys).Methods("GET")
 	api.HandleFunc("/keys/{key}", apiGetKey).Methods("GET")
 	api.HandleFunc("/keys/{key}", apiUpdateKey).Methods("PUT")
 	api.HandleFunc("/update", apiUpdateKeyQuery).Methods("GET")

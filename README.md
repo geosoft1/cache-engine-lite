@@ -11,6 +11,7 @@ Data sharing cloud platform.
   - [Show entire cache](#show-entire-cache)
   - [Save the cache to file](#save-the-cache-to-file)
   - [Get a key](#get-a-key)
+  - [Get a group of keys](#get-a-group-of-keys)
   - [Update a key](#update-a-key)
   - [Update a key (query connector)](#update-a-key-query-connector)
   - [Get version](#get-version)
@@ -37,7 +38,7 @@ Name|Description
 
 >Authorization token must be passed as environment variable.
 
-	env XAUTHTOKEN=35A6E ./cache-engine
+	env XAUTHTOKEN=35A6E ./cache-engine-lite
 
 >To generate the tokens see [How can I generate strong keys or tokens?](#how-can-i-generate-strong-keys-or-tokens).
 
@@ -68,7 +69,7 @@ Code|Description
 ---|---
 `200 OK`                    |Request has succeeded.
 `201 Created`               |Key was created.
-`204 No Content`            |Other party deleted the data.
+`204 No Content`            |No content or other party deleted the data.
 `400 Bad Request`           |Wrong input JSON.
 `401 Unauthorized`          |Wrong input `X-Auth-Token`.
 `404 Not Found`             |Wrong input URL.
@@ -232,6 +233,51 @@ Resources|Values
 
 <div style="page-break-after: always;"></div>
 
+### Get a group of keys
+
+Resources|Values
+---|---
+**Endpoint**|`GET /keys?key=[KEY]`
+**Request headers**|-
+**Request parameters**|`Query RFC3986`
+**Response headers**|`HTTP/1.1 [code]`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response payload**|`JSON RFC4627`
+**Return codes**|`200 OK`<br> `204 No Content`<br> `500 Internal Server Error`
+
+**Sample request:**
+
+	curl -X GET -i "localhost:8080/keys?key=37D4B&key=37D4C&key=NONEXISTENTKEY"
+
+**Sample response:**
+
+	HTTP/1.1 200 OK
+	Content-Size: 3
+	Content-Type: application/json
+	Date: Mon, 14 Oct 2019 15:44:55 GMT
+	Content-Length: 159
+	
+	[
+		{
+			"Tem": [
+				"1",
+				"2"
+			]
+		},
+		{
+			"Tem": [
+				"1",
+				"3"
+			]
+		},
+		null
+	]
+
+`Content-Size` is a custom header meaning the number of items in the cache.
+
+>Nonexistent or empty keys appears as `null` in the corresponding position in array.
+
+<div style="page-break-after: always;"></div>
+
 ### Update a key
 
 Resources|Values
@@ -261,7 +307,7 @@ Resources|Values
 
 Resources|Values
 ---|---
-**Endpoint**|`GET /update?key=KEY[&name=value]`
+**Endpoint**|`GET /update?key=[KEY]&name=value`
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
 **Response headers**|`HTTP/1.1 [code]`<br>`Date: [timeformat]`<br>`Content-Length: 0`
