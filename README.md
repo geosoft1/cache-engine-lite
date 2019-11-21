@@ -222,9 +222,7 @@ Resources|Values
 			"1",
 			"2"
 		],
-		"_time_": [
-			"2019-10-14T15:44:00Z"
-		]
+		"_time_": "2019-10-14T15:44:00Z"
 	}
 
 >Timestamp is available only for items updated with [query connector](#update-a-key-query-connector) as `_time_` in [RFC3339](https://golang.org/src/time/format.go?s=3825:3867#L62) or [RFC3339Nano](https://golang.org/src/time/format.go?s=3868:3919#L62) format.

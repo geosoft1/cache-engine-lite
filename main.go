@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.1.0-20191116"
+var VERSION = "1.2.0-20191120"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")

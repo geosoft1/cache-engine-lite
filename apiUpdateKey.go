@@ -34,7 +34,16 @@ func apiUpdateKeyQuery(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
+	// map[string][]string -> map[string]interface{}
+	var data = map[string]data{}
+	for k, v := range query {
+		if len(v) > 1 {
+			data[k] = v
+		} else {
+			data[k] = v[0]
+		}
+	}
 	m.Lock()
-	cache[key] = query
+	cache[key] = data
 	m.Unlock()
 }
