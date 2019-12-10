@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.2.0-20191120"
+var VERSION = "1.2.1-20191210"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -47,6 +47,8 @@ func main() {
 	api.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			log.Println(r.RemoteAddr, r.Method, r.RequestURI)
+			// open api need CORS
+			w.Header().Set("Access-Control-Allow-Origin", "*")
 			next.ServeHTTP(w, r)
 		})
 	})

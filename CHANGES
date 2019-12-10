@@ -2,3 +2,5 @@
 - add get a group of keys api
 1.2.0-20191120
 - map[string][]string -> map[string]interface{} in query connector
+1.2.1-20191210
+- add CORS to the api

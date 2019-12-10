@@ -60,8 +60,11 @@ Name|Description
 - HTTP query [RFC3986](https://tools.ietf.org/html/rfc3986).
 - HTTP responses time [RFC7231#section-7.1.1.1](https://tools.ietf.org/html/rfc7231#section-7.1.1.1) (see also [TimeFormat](https://golang.org/src/net/http/server.go?s=27987:28038#L903)).
 - HTTP return codes [RFC7231#page-49](https://tools.ietf.org/html/rfc7231#page-49) and [RFC4918#section-11.5](https://tools.ietf.org/html/rfc4918#section-11.5).
+- [CORS](https://www.w3.org/TR/cors/) <sup>2</sup>.
 
 <sup>1</sup> Depending how is compilated can use [RFC3339](https://golang.org/src/time/format.go?s=3825:3867#L62) or [RFC3339Nano](https://golang.org/src/time/format.go?s=3868:3919#L62) format.
+
+<sup>2</sup> Open APIs need cross-origin resource sharing.
 
 **Return codes**
 
@@ -86,7 +89,7 @@ Resources|Values
 **Endpoint**|`POST /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|`key=[KEY]`
-**Response headers**|`HTTP/1.1 [code]`<br>`Location: /keys/{key}`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Location: /keys/{key}`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`201 Created`<br> `401 Unauthorized`<br> `409 Conflict`
 
@@ -97,6 +100,7 @@ Resources|Values
 **Sample response**
 
 	HTTP/1.1 201 Created
+	Access-Control-Allow-Origin: *
 	Location: /keys/37D4B
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 0
@@ -114,7 +118,7 @@ Resources|Values
 **Endpoint**|`DELETE /admin/keys/{key}`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br>`Date: [timeformat]`<br>`Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `404 Not Found`
 
@@ -125,6 +129,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 0
 
@@ -139,7 +144,7 @@ Resources|Values
 **Endpoint**|`GET /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `500 Internal Server Error`
 
@@ -150,6 +155,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Content-Size: 1
 	Content-Type: application/json
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
@@ -175,7 +181,7 @@ Resources|Values
 **Endpoint**|`PUT /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br>`Date: [timeformat]`<br>`Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `500 Internal Server Error`<br> `507 Insufficient Storage`
 
@@ -186,6 +192,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 0
 
@@ -202,7 +209,7 @@ Resources|Values
 **Endpoint**|`GET /keys/{key}`
 **Request headers**|`Cache-Control: no-store`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br>`Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `204 No Content`<br> `404 Not Found`<br> `500 Internal Server Error`
 
@@ -213,6 +220,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Content-Type: application/json
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 100
@@ -238,7 +246,7 @@ Resources|Values
 **Endpoint**|`GET /keys?key=[KEY]`
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
-**Response headers**|`HTTP/1.1 [code]`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `204 No Content`<br> `500 Internal Server Error`
 
@@ -249,6 +257,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Content-Size: 3
 	Content-Type: application/json
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
@@ -283,7 +292,7 @@ Resources|Values
 **Endpoint**|`PUT /keys/{key}`
 **Request headers**|-
 **Request parameters**|`JSON RFC4627`
-**Response headers**|`HTTP/1.1 [code]`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `400 Bad Request`<br> `404 Not Found`
 
@@ -294,6 +303,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 0
 
@@ -308,7 +318,7 @@ Resources|Values
 **Endpoint**|`GET /update?key=[KEY]&name=value`
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
-**Response headers**|`HTTP/1.1 [code]`<br>`Date: [timeformat]`<br>`Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `404 Not Found`
 
@@ -319,6 +329,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
 	Content-Length: 0
 
@@ -335,7 +346,7 @@ Resources|Values
 **Endpoint**|`GET /version`
 **Request headers**|-
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 200 OK`<br> `Content-Type: text/plain`<br> `Server: go[version] (GOOS)`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: text/plain`<br> `Server: go[version] (GOOS)`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`text`
 **Return codes**|`200 OK`
 
@@ -346,6 +357,7 @@ Resources|Values
 **Sample response:**
 
 	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
 	Content-Type: text/plain
 	Server: go1.13 (linux)
 	Date: Mon, 14 Oct 2019 15:44:55 GMT
