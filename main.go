@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.2.1-20191210"
+var VERSION = "1.3.0-20191214"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -25,7 +25,7 @@ type data = interface{}
 
 var cache = map[string]data{}
 var m = sync.Mutex{}
-var api = mux.NewRouter()
+var api = mux.NewRouter().PathPrefix(os.Getenv("INSTANCEID")).Subrouter()
 var adm = api.PathPrefix("/admin").Subrouter()
 
 func main() {

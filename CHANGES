@@ -4,3 +4,5 @@
 - map[string][]string -> map[string]interface{} in query connector
 1.2.1-20191210
 - add CORS to the api
+1.3.0-20191214
+- add cloud instance id

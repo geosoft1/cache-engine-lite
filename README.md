@@ -38,9 +38,13 @@ Name|Description
 
 >Authorization token must be passed as environment variable.
 
-	env XAUTHTOKEN=35A6E ./cache-engine-lite
+	XAUTHTOKEN=35A6E ./cache-engine-lite
 
 >To generate the tokens see [How can I generate strong keys or tokens?](#how-can-i-generate-strong-keys-or-tokens).
+
+>Using under a reverse proxy needs an instance id passed as environment variable. The instance id can be a random key or a simple number and it's important to be preceded by the character `/` otherwise will not work. This id should be used further as route prefix for all endpoints.
+
+	XAUTHTOKEN=35A6E INSTANCEID=/0 ./cache-engine-lite
 
 ## Generate self-signed certificates
 
