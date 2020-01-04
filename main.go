@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.3.0-20191214"
+var VERSION = "1.4.0-20200104"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -43,6 +43,8 @@ func main() {
 	if err := json.NewDecoder(file).Decode(&cache); err != nil {
 		log.Println(err)
 	}
+	// file server
+	api.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(filepath.Join(path, "static")))))
 	// logging middleware
 	api.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

@@ -15,6 +15,7 @@ Data sharing cloud platform.
   - [Update a key](#update-a-key)
   - [Update a key (query connector)](#update-a-key-query-connector)
   - [Get version](#get-version)
+  - [File server](#file-server)
 - [Known issues](#known-issues)
 - [FAQ](#faq)
 - [Resources](#resources)
@@ -27,6 +28,7 @@ Data sharing cloud platform.
 - Share data structures over HTTP protocol.
 - Query connector for [web of things](https://en.wikipedia.org/wiki/Web_of_Things).
 - Remote administration through [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) API.
+- File server for various resources.
 
 ## Parameters
 
@@ -370,6 +372,37 @@ Resources|Values
 	1.0.0+20191014
 
 >Version string respect semantic versioning (see [semver.org](https://semver.org)).
+
+<div style="page-break-after: always;"></div>
+
+### File server
+
+Resources|Values
+---|---
+**Endpoint**|`GET /static/`
+**Request headers**|-
+**Request parameters**|-
+**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: text/html; charset=utf-8`<br> `Last-Modified: [timeformat]`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response payload**|`text/html`
+**Return codes**|`200 OK`<br> `404 Not Found`
+
+**Sample request:**
+
+	curl -X GET -i "localhost:8080/static/"
+
+**Sample response:**
+
+	HTTP/1.1 200 OK
+	Access-Control-Allow-Origin: *
+	Content-Type: text/html; charset=utf-8
+	Last-Modified: Mon, 14 Oct 2019 15:44:55 GMT
+	Date: Mon, 14 Oct 2019 15:44:55 GMT
+	Content-Length: 13
+	
+	<pre>
+	</pre>
+
+>By default the file server expose the `static` folder content to the world, don't forget to create an `index.html` file inside to secure the folder.
 
 <div style="page-break-after: always;"></div>
 
