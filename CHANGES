@@ -8,3 +8,5 @@
 - add cloud instance id
 1.4.0-20200104
 - add file server for various resources
+1.4.1-20200118
+- add full support for CORS
