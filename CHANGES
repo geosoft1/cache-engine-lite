@@ -10,3 +10,5 @@
 - add file server for various resources
 1.4.1-20200118
 - add full support for CORS
+1.4.2-20200120
+- add OPTIONS method to api
