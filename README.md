@@ -95,7 +95,7 @@ Resources|Values
 **Endpoint**|`POST /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|`key=[KEY]`
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Location: /keys/{key}`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Location: /keys/{key}`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`201 Created`<br> `401 Unauthorized`<br> `409 Conflict`
 
@@ -109,8 +109,9 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Location: /keys/37D4B
-	Date: Sat, 18 Jan 2020 09:22:18 GMT
+	Date: Fri, 24 Jan 2020 09:22:18 GMT
 	Content-Length: 0
 
 >To generate the keys see [How can I generate strong keys or tokens?](#how-can-i-generate-strong-keys-or-tokens).
@@ -125,7 +126,7 @@ Resources|Values
 **Endpoint**|`DELETE /admin/keys/{key}`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `404 Not Found`
 
@@ -139,7 +140,8 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
-	Date: Sat, 18 Jan 2020 09:23:57 GMT
+	Access-Control-Expose-Headers: *
+	Date: Fri, 24 Jan 2020 09:23:57 GMT
 	Content-Length: 0
 
 >Remember to save structure after this operation otherwise will be lost at restart (see [Save the cache to file](#save-the-cache-to-file)).
@@ -153,7 +155,7 @@ Resources|Values
 **Endpoint**|`GET /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `500 Internal Server Error`
 
@@ -167,9 +169,10 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Content-Size: 1
 	Content-Type: application/json
-	Date: Sat, 18 Jan 2020 09:25:39 GMT
+	Date: Fri, 24 Jan 2020 09:25:39 GMT
 	Content-Length: 85
 	
 	{
@@ -192,7 +195,7 @@ Resources|Values
 **Endpoint**|`PUT /admin/keys`
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `401 Unauthorized`<br> `500 Internal Server Error`<br> `507 Insufficient Storage`
 
@@ -206,7 +209,8 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
-	Date: Sat, 18 Jan 2020 09:27:16 GMT
+	Access-Control-Expose-Headers: *
+	Date: Fri, 24 Jan 2020 09:27:16 GMT
 	Content-Length: 0
 
 >Default cache file is `cache.json`. It's no need to take care about this file because it will be created if not exists. At start, the engine will load the cache from this file.
@@ -222,7 +226,7 @@ Resources|Values
 **Endpoint**|`GET /keys/{key}`
 **Request headers**|`Cache-Control: no-store`
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `204 No Content`<br> `404 Not Found`<br> `500 Internal Server Error`
 
@@ -236,8 +240,9 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Content-Type: application/json
-	Date: Sat, 18 Jan 2020 09:29:16 GMT
+	Date: Fri, 24 Jan 2020 09:29:16 GMT
 	Content-Length: 48
 	
 	{
@@ -260,7 +265,7 @@ Resources|Values
 **Endpoint**|`GET /keys?key=[KEY]`
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`JSON RFC4627`
 **Return codes**|`200 OK`<br> `204 No Content`<br> `500 Internal Server Error`
 
@@ -274,9 +279,10 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Content-Size: 3
 	Content-Type: application/json
-	Date: Sat, 18 Jan 2020 09:32:39 GMT
+	Date: Fri, 24 Jan 2020 09:32:39 GMT
 	Content-Length: 159
 	
 	[
@@ -308,7 +314,7 @@ Resources|Values
 **Endpoint**|`PUT /keys/{key}`
 **Request headers**|-
 **Request parameters**|`JSON RFC4627`
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `400 Bad Request`<br> `404 Not Found`
 
@@ -322,7 +328,8 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
-	Date: Sat, 18 Jan 2020 09:25:27 GMT
+	Access-Control-Expose-Headers: *
+	Date: Fri, 24 Jan 2020 09:25:27 GMT
 	Content-Length: 0
 
 >Other party can't update a key until an administrator create one for him (see [Create a new key](#create-a-new-key)).
@@ -336,7 +343,7 @@ Resources|Values
 **Endpoint**|`GET /update?key=[KEY]&name=value`
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
-**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
+**Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
 **Response payload**|-
 **Return codes**|`200 OK`<br> `404 Not Found`
 
@@ -350,7 +357,8 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
-	Date: Sat, 18 Jan 2020 09:35:16 GMT
+	Access-Control-Expose-Headers: *
+	Date: Fri, 24 Jan 2020 09:35:16 GMT
 	Content-Length: 0
 
 >Other party can't update a key until an administrator create one for him (see [Create a new key](#create-a-new-key)).
@@ -366,7 +374,7 @@ Resources|Values
 **Endpoint**|`GET /version`
 **Request headers**|-
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: text/plain`<br> `Server: go[version] (GOOS)`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: text/plain`<br> `Server: go[version] (GOOS)`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`text`
 **Return codes**|`200 OK`
 
@@ -380,12 +388,13 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Content-Type: text/plain
 	Server: go1.13 (linux)
-	Date: Sat, 18 Jan 2020 09:13:11 GMT
+	Date: Fri, 24 Jan 2020 09:13:11 GMT
 	Content-Length: 14
 	
-	1.4.1-20200118
+	1.4.3-20200124
 
 >Version string respect semantic versioning (see [semver.org](https://semver.org)).
 
@@ -398,7 +407,7 @@ Resources|Values
 **Endpoint**|`GET /static/`
 **Request headers**|-
 **Request parameters**|-
-**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Content-Type: text/html; charset=utf-8`<br> `Last-Modified: [timeformat]`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
+**Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: text/html; charset=utf-8`<br> `Last-Modified: [timeformat]`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
 **Response payload**|`text/html`
 **Return codes**|`200 OK`<br> `404 Not Found`
 
@@ -412,9 +421,10 @@ Resources|Values
 	Access-Control-Allow-Headers: X-Auth-Token, Cache-Control
 	Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
 	Access-Control-Allow-Origin: *
+	Access-Control-Expose-Headers: *
 	Content-Type: text/html; charset=utf-8
-	Last-Modified: Sat, 18 Jan 2020 09:18:42 GMT
-	Date: Sat, 18 Jan 2020 09:18:47 GMT
+	Last-Modified: Fri, 24 Jan 2020 09:18:42 GMT
+	Date: Fri, 24 Jan 2020 09:18:47 GMT
 	Content-Length: 13
 	
 	<pre>

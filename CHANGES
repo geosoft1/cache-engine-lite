@@ -12,3 +12,5 @@
 - add full support for CORS
 1.4.2-20200120
 - add OPTIONS method to api
+1.4.3-20200124
+- add Access-Control-Expose-Headers to CORS

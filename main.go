@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.4.2-20200120"
+var VERSION = "1.4.3-20200124"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -32,6 +32,7 @@ func enableCORS(w http.ResponseWriter) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "X-Auth-Token, Cache-Control")
+	w.Header().Set("Access-Control-Expose-Headers", "*")
 }
 
 func main() {
