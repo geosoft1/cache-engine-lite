@@ -1,10 +1,11 @@
-cache-engine-lite</sub>
+cache-engine-lite
 ====
 Data sharing cloud platform.
 
 - [Features](#features)
 - [Parameters](#parameters)
 - [Generate self-signed certificates](#generate-self-signed-certificates)
+- [Deploying with Docker](#deploying-with-docker)
 - [REST API](#rest-api)
   - [Create a new key](#create-a-new-key)
   - [Delete a key](#delete-a-key)
@@ -30,7 +31,17 @@ Data sharing cloud platform.
 - Remote administration through [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) API.
 - File server for various resources.
 
-## Parameters
+## Getting started
+
+	XAUTHTOKEN=35A6E ./cache-engine-lite
+
+>The authorization token must be passed as environment variable. To generate the tokens see [How can I generate strong keys or tokens?](#how-can-i-generate-strong-keys-or-tokens).
+
+>Using under a reverse proxy needs an instance id passed as environment variable. The instance id can be a random key or a simple number and it's important to be preceded by the character `/` otherwise will not work. This id should be used further as route prefix for all endpoints.
+
+	XAUTHTOKEN=35A6E INSTANCEID=/0 ./cache-engine-lite
+
+**Parameters**
 
 Name|Description
 ---|---
@@ -38,22 +49,18 @@ Name|Description
 `-http`|Listening address and port for HTTP server, default value `8080`.
 `-https`|Listening address and port for HTTPS server, default value `8090`.
 
->Authorization token must be passed as environment variable.
-
-	XAUTHTOKEN=35A6E ./cache-engine-lite
-
->To generate the tokens see [How can I generate strong keys or tokens?](#how-can-i-generate-strong-keys-or-tokens).
-
->Using under a reverse proxy needs an instance id passed as environment variable. The instance id can be a random key or a simple number and it's important to be preceded by the character `/` otherwise will not work. This id should be used further as route prefix for all endpoints.
-
-	XAUTHTOKEN=35A6E INSTANCEID=/0 ./cache-engine-lite
-
 ## Generate self-signed certificates
 
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt
 
 >Examples from this document are made with `curl`, do not forget to use it with `-k` option for HTTPS connections with self-signed certificates.
  
+## Deploying with Docker
+
+	docker build -t cache-engine-lite .
+	docker run -dit --restart unless-stopped --name cache-engine-lite -p 8080:8080 cache-engine-lite
+	docker logs cache-engine-lite
+
 <div style="page-break-after: always;"></div>
 
 ## REST API
@@ -500,6 +507,18 @@ The other party must decode the data with the same password.
 	curl -s -X GET "localhost:8080/keys/37D4B" | 
 	grep enc | sed 's/"//g' | awk '{print $2}' | openssl enc -aes-128-cbc -a -d -salt -pass pass:1234
 	secret=thing
+
+### Can I generate datetime into the cache?
+
+	nano $HOME/cache-engine:datetime
+	#!/bin/bash	
+	while true; do
+	  curl -X PUT "localhost:8080/keys/datetime" -d "{ \"unixtime\": `date '+%s'` }"
+	  sleep 1;
+	done
+	chmod +x cache-engine:datetime
+	crontab -e	
+	@reboot $HOME/cache-engine:datetime
 
 ## Resources
 

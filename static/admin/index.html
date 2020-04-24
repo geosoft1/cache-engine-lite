@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<title>cache-engine</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" sizes="64x64" href="">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+<script>
+VERSION = "1.0.0-20200424"
+UUIDGENERATOR = 'https://www.uuidgenerator.net/api/guid'
+SERVERADDR = "http://localhost:8080"
+
+statusText = {
+  "-1" : "Network error",
+  "200": "OK",
+  "201": "Created",
+  "204": "No Content",
+  "400": "Bad Request",
+  "401": "Unauthorized",
+  "404": "Not Found",
+  "409": "Conflict",
+  "500": "Internal Server Error",
+  "507": "Insufficient Storage"
+}
+
+// disable back button (https://stackoverflow.com/a/48644868)
+window.addEventListener('popstate', function () {
+  history.pushState(null, null, null)
+});
+
+// filter an unordered list by a word
+function filter(word, list) {
+  var input, filter, ul, li, i
+  input = document.getElementById(word)
+  filter = input.value.toUpperCase()
+  ul = document.getElementById(list)
+  li = ul.getElementsByTagName("li")
+  for (i = 0; i < li.length; i++) {
+    if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = ""
+    } else {
+      li[i].style.display = "none"
+    }
+  }
+}
+
+// show an element in the DOM tree
+show = function(v) {
+  document.getElementById(v).style.display = 'block'
+}
+
+// hide an element in the DOM tree
+hide = function(v) {
+  document.getElementById(v).style.display = 'none'
+}
+
+// hide every DOM element having page class
+clrscr = function() {
+  p = document.getElementsByClassName('page')
+  for(i = 0; i < p.length; i++)
+    p[i].style.display = 'none'
+}
+
+var app = angular.module("myApp", [])
+
+app.controller('myCtrl', function($scope, $http) {
+
+  clrscr()
+  if (typeof SERVERADDR == 'undefined') {
+    alert("SERVERADDR undefined.")
+    return
+  }
+
+  // wrap JSON.stringify to be evaluated in context of the scope
+  $scope.JSONstringify = function(val) {
+    return JSON.stringify(val, null, 2)
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#show-entire-cache
+  $scope.GetCache = function() {
+    $http({
+      method: 'GET',
+      url: SERVERADDR + '/admin/keys',
+      headers : {'X-Auth-Token': $scope.token}
+    }).then(function successCallback(response) {
+ 	    console.log(response)
+      // https://stackoverflow.com/a/13782762
+      // $scope.keys = Object.keys($scope.cache).length
+      $scope.keys = response.headers('Content-Size')
+ 	    $scope.cache = response.data
+      clrscr()
+      show('sidebar')
+      show('keysList')
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  $scope.ModifyKey = function(key, val) {
+    $scope.key = key
+    $scope.val = $scope.JSONstringify(val)
+    clrscr()
+    show('sidebar')    
+    show('modifyKey')    
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#update-a-key
+  $scope.submitModifyKey = function(key, val) {
+    $http({
+      method: 'PUT',
+      url: SERVERADDR + '/keys/' + key,
+      data: val,
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function successCallback(response) {
+ 	    console.log(response)
+      $scope.GetCache()
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#delete-a-key
+  $scope.DeleteKey = function(key) {
+    if (!confirm("Delete " + key + " ?")) {
+      return
+    }
+    $http({
+      method: 'DELETE',
+      url: SERVERADDR + '/admin/keys/' + key,
+      headers : {'X-Auth-Token': $scope.token}
+    }).then(function successCallback(response) {
+	    console.log(response)
+      $scope.GetCache()
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  $scope.AddKey = function() {
+    $scope.key = ''
+    clrscr()
+    show('sidebar')    
+    show('addKey')    
+  }
+
+  // https://www.uuidgenerator.net/api
+  $scope.submitGenerateKey = function() {
+    $http({
+      method: 'GET',
+      url: UUIDGENERATOR
+    }).then(function successCallback(response) {
+      console.log(response)
+      $scope.key = response.data.replace(/[\r\n]/g, '')
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#create-a-new-key
+  $scope.submitAddKey = function(key) {
+    $http({
+      method: 'POST',
+      url: SERVERADDR + '/admin/keys',
+      data: 'key=' + key ,
+      headers : {'X-Auth-Token': $scope.token, 'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function successCallback(response) {
+ 	    console.log(response)
+      alert(response.status+' '+statusText[response.status]+' '+response.headers('Location'))
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#save-the-cache-to-file
+  $scope.SaveCache = function() {
+    $http({
+      method: 'PUT',
+      url: SERVERADDR + '/admin/keys',
+      headers : {'X-Auth-Token': $scope.token,}
+    }).then(function successCallback(response) {
+ 	    console.log(response)
+      alert("Cache saved!")
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  // https://github.com/geosoft1/cache-engine-lite#get-version
+  $scope.GetInfo = function() {
+    $http({
+      method: 'GET',
+      url: SERVERADDR + '/version'
+    }).then(function successCallback(response, headers) {
+	    console.log(response)
+      $scope.server = response.headers('Server')
+      $scope.VERSION = VERSION
+      $scope.version = response.data
+      clrscr()
+      show('sidebar')    
+      show('info')    
+    }, function errorCallback(response) {
+      console.log(response)
+      alert(response.status+' '+statusText[response.status])
+    })
+  }
+
+  $scope.Signin = function() {
+    clrscr()
+    show('signin')
+  }
+
+  $scope.Signout = function() {
+    $scope.token = ''
+    $scope.Signin()
+  }
+
+})
+</script>
+
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="Signin()">
+
+  <!--Signin view-->
+  <div class="w3-container w3-display-middle page" id='signin' style="width:250px">
+    <h3>Sign in</h3>
+    <p><input class="w3-input w3-large w3-border" type="password" placeholder="Authorization token" ng-model="token" autofocus required>
+    <p><button class="w3-button w3-large w3-border w3-round w3-white" ng-click="GetCache()">Next <i class="fa fa-sign-in"></i></button>
+  </div>
+
+  <!--Sidebar view-->
+  <div class="w3-sidebar w3-bar-block w3-white w3-border-right page" style="width:65px" id="sidebar">
+    <a href="#" class="w3-bar-item w3-button" title="Show entire cache ({{keys}})" ng-click="GetCache()"><i class="fa fa-bars fa-2x"></i></a>
+    <a href="#" class="w3-bar-item w3-button" title="Add a key" ng-click="AddKey()"><i class="fa fa-plus fa-2x"></i></a>
+    <a href="#" class="w3-bar-item w3-button" title="Save the cache" ng-click="SaveCache()"><i class="fa fa-save fa-2x"></i></a>
+    <a href="#" class="w3-bar-item w3-button" title="About application" ng-click="GetInfo()"><i class="fa fa-info fa-2x"></i></a>
+    <a href="#" class="w3-bar-item w3-button" title="Signout" ng-click="Signout()"><i class="fa fa-sign-out fa-2x"></i></a>
+  </div>
+
+  <!--Keys list view-->
+  <div class="page" style="margin-left:65px" id='keysList'>
+    <input class="w3-input w3-large w3-border-bottom" type="text" placeholder="Type something.." id="inputKey" onkeyup='filter("inputKey","keysList")'>
+    <ul class="w3-ul">
+      <li class="w3-border-bottom" ng-if="key" ng-repeat="(key,val) in cache" id='{{key}}'>
+        <span ng-click="DeleteKey(key)" class="w3-closebtn w3-padding w3-margin-right" ng-attr-title="Delete key"><i class="fa fa-times"></i></span>
+        <p><span ng-click="ModifyKey(key,val)" class="w3-xlarge" ng-attr-title="{{JSONstringify(val)}}"><i class="fa fa-info-circle fa-lg"></i></span> 
+        <p><span class="w3-xlarge">{{key}}</span>
+      </li> 
+    </ul>
+  </div>
+
+  <!--Add key view-->
+  <div class="w3-container page" style="margin-left:65px" id='addKey'>
+    <h3>Add a new key</h3>
+   	<input class="w3-input w3-large w3-border" ng-model="key" type="text" placeholder="Key">
+    <p><button class="w3-button w3-large w3-border w3-round w3-white" title="Generate UUID" ng-click="submitGenerateKey()">Generate</button>
+    <button class="w3-button w3-large w3-round w3-white w3-border" ng-click="submitAddKey(key)">OK</button>
+  </div>
+
+  <!--Modify key view-->
+  <div class="w3-container page" style="margin-left:65px" id='modifyKey'>
+    <h3>Modify content of {{key}}</h3>
+    <textarea ng-model="val" class="w3-input w3-border" wrap="off" rows="10" style="font-family:monospace;height:44vh">{{val}}</textarea>
+    <p><button class="w3-button w3-large w3-border w3-round w3-white" ng-click="submitModifyKey(key, val)">OK</button>
+  </div>
+
+  <!--Info view-->
+  <div class="w3-container page" style="margin-left:65px" id='info'>
+    <p><strong>VERSION</strong><br>{{VERSION}}
+    <p><strong>API</strong><br>{{version}}
+    <p><strong>Server</strong><br>{{server}}
+    <p><strong>Cache length</strong><br>{{keys}}
+  </div>
+
+</body>
+</html>

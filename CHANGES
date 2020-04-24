@@ -14,3 +14,7 @@
 - add OPTIONS method to api
 1.4.3-20200124
 - add Access-Control-Expose-Headers to CORS
+1.5.0-20200424
+- fix a bug in file server
+- add admin application and Dockerfile
+- update documentation (Can I generate datetime into the cache?)
