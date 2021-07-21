@@ -9,6 +9,8 @@ import (
 )
 
 func apiGetKey(w http.ResponseWriter, r *http.Request) {
+	m.Lock()
+	defer m.Unlock()
 	key := mux.Vars(r)["key"]
 	if _, ok := cache[key]; !ok {
 		w.WriteHeader(http.StatusNotFound)
@@ -27,8 +29,6 @@ func apiGetKey(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if r.Header.Get("Cache-Control") == "no-store" {
-		m.Lock()
 		cache[key] = nil
-		m.Unlock()
 	}
 }

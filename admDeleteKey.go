@@ -7,12 +7,12 @@ import (
 )
 
 func admDeleteKey(w http.ResponseWriter, r *http.Request) {
+	m.Lock()
+	defer m.Unlock()
 	key := mux.Vars(r)["key"]
 	if _, ok := cache[key]; !ok {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
-	m.Lock()
 	delete(cache, key)
-	m.Unlock()
 }

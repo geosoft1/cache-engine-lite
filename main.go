@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.5.0-20200424"
+var VERSION = "1.5.1-20210721"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -31,7 +31,7 @@ var adm = api.PathPrefix("/admin").Subrouter()
 func enableCORS(w http.ResponseWriter) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "X-Auth-Token, Cache-Control")
+	w.Header().Set("Access-Control-Allow-Headers", "X-Auth-Token, Cache-Control, Cors-Control")
 	w.Header().Set("Access-Control-Expose-Headers", "*")
 }
 
@@ -56,10 +56,12 @@ func main() {
 	api.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			log.Println(r.RemoteAddr, r.Method, r.RequestURI)
-			// open api need CORS
-			enableCORS(w)
-			if r.Method == "OPTIONS" {
-				return
+			if r.Header.Get("Cors-Control") != "no-cors" {
+				// open api need CORS
+				enableCORS(w)
+				if r.Method == "OPTIONS" {
+					return
+				}
 			}
 			next.ServeHTTP(w, r)
 		})

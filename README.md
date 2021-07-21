@@ -77,7 +77,7 @@ Name|Description
 
 <sup>1</sup> Depending how is compilated can use [RFC3339](https://golang.org/src/time/format.go?s=3825:3867#L62) or [RFC3339Nano](https://golang.org/src/time/format.go?s=3868:3919#L62) format.
 
-<sup>2</sup> Open APIs need cross-origin resource sharing.
+<sup>2</sup> Open APIs need cross-origin resource sharing. To disable CORS on individual requests (eg. keep the traffic low for IoT devices) send `Cors-Control: no-cors` header.
 
 **Return codes**
 

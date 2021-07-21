@@ -9,6 +9,8 @@ import (
 )
 
 func apiUpdateKey(w http.ResponseWriter, r *http.Request) {
+	m.Lock()
+	defer m.Unlock()
 	key := mux.Vars(r)["key"]
 	if _, ok := cache[key]; !ok {
 		w.WriteHeader(http.StatusNotFound)
@@ -19,12 +21,12 @@ func apiUpdateKey(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	m.Lock()
 	cache[key] = data
-	m.Unlock()
 }
 
 func apiUpdateKeyQuery(w http.ResponseWriter, r *http.Request) {
+	m.Lock()
+	defer m.Unlock()
 	query := r.URL.Query()
 	key := query.Get("key")
 	query.Del("key")
@@ -43,7 +45,5 @@ func apiUpdateKeyQuery(w http.ResponseWriter, r *http.Request) {
 			data[k] = v[0]
 		}
 	}
-	m.Lock()
 	cache[key] = data
-	m.Unlock()
 }
