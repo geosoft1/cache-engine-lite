@@ -18,6 +18,6 @@
 - fix a bug in file server
 - add admin application and Dockerfile
 - update documentation (Can I generate datetime into the cache?)
-1.5.0-20210721
+1.5.1-20210721
 - fix a bug in the concurrent map
 - add no CORS option
