@@ -44,7 +44,7 @@ Data sharing cloud platform.
 **Parameters**
 
 Name|Description
----|---
+:---|:---
 `-conf`|Cache file name, default value `cache.json`.
 `-http`|Listening address and port for HTTP server, default value `8080`.
 `-https`|Listening address and port for HTTPS server, default value `8090`.
@@ -82,7 +82,7 @@ Name|Description
 **Return codes**
 
 Code|Description
----|---
+:---|:---
 `200 OK`                    |Request has succeeded.
 `201 Created`               |Key was created.
 `204 No Content`            |No content or other party deleted the data.
@@ -97,9 +97,8 @@ Code|Description
 
 ### Create a new key
 
-Resources|Values 
----|---
 **Endpoint**|`POST /admin/keys`
+:---|:---
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|`key=[KEY]`
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Location: /keys/{key}`<br> `Date: [timeformat]`<br> `Content-Length: 0`
@@ -128,9 +127,9 @@ Resources|Values
 <div style="page-break-after: always;"></div>
 
 ### Delete a key
-Resources|Values
----|---
+
 **Endpoint**|`DELETE /admin/keys/{key}`
+:---|:---
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
@@ -157,9 +156,8 @@ Resources|Values
 
 ### Show entire cache
 
-Resources|Values
----|---
 **Endpoint**|`GET /admin/keys`
+:---|:---
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
@@ -197,9 +195,8 @@ Resources|Values
 
 ### Save the cache to file
 
-Resources|Values
----|---
 **Endpoint**|`PUT /admin/keys`
+:---|:---
 **Request headers**|`X-Auth-Token: [TOKEN]`
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
@@ -228,9 +225,8 @@ Resources|Values
 
 ### Get a key
 
-Resources|Values
----|---
 **Endpoint**|`GET /keys/{key}`
+:---|:---
 **Request headers**|`Cache-Control: no-store`
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
@@ -267,9 +263,8 @@ Resources|Values
 
 ### Get a group of keys
 
-Resources|Values
----|---
 **Endpoint**|`GET /keys?key=[KEY]`
+:---|:---
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Size: [size]`<br> `Content-Type: application/json`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
@@ -316,9 +311,8 @@ Resources|Values
 
 ### Update a key
 
-Resources|Values
----|---
-**Endpoint**|`PUT /keys/{key}`
+**Endpoint**|`PUT\|POST /keys/{key}`
+:---|:---
 **Request headers**|-
 **Request parameters**|`JSON RFC4627`
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
@@ -341,13 +335,14 @@ Resources|Values
 
 >Other party can't update a key until an administrator create one for him (see [Create a new key](#create-a-new-key)).
 
+>To create persistent connections with the engine use `POST` method instead `PUT`. If you do not want a persistent connection use `Connection: close` header in your request. However, this header is mandatary with `PUT` method to avoid receiving `400 Bad Request` error code.
+
 <div style="page-break-after: always;"></div>
 
 ### Update a key (query connector)
 
-Resources|Values
----|---
 **Endpoint**|`GET /update?key=[KEY]&name=value`
+:---|:---
 **Request headers**|-
 **Request parameters**|`Query RFC3986`
 **Response headers**|`HTTP/1.1 [code]`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Date: [timeformat]`<br> `Content-Length: 0`
@@ -376,9 +371,8 @@ Resources|Values
 
 ### Get version
 
-Resources|Values
----|---
 **Endpoint**|`GET /version`
+:---|:---
 **Request headers**|-
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: text/plain`<br> `Server: go[version] (GOOS)`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
@@ -409,9 +403,8 @@ Resources|Values
 
 ### File server
 
-Resources|Values
----|---
 **Endpoint**|`GET /static/`
+:---|:---
 **Request headers**|-
 **Request parameters**|-
 **Response headers**|`HTTP/1.1 200 OK`<br> `Access-Control-Allow-Headers: X-Auth-Token, Cache-Control`<br> `Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS`<br> `Access-Control-Allow-Origin: *`<br> `Access-Control-Expose-Headers: *`<br> `Content-Type: text/html; charset=utf-8`<br> `Last-Modified: [timeformat]`<br> `Date: [timeformat]`<br> `Content-Length: [length]`
@@ -457,10 +450,10 @@ Simply check with a free JSON formatter like [jsonformatter.curiousconcept.com](
 
 ### How can I run from automatically?
 
-Recommended way is to do thid from `crontab` at reboot.
+Recommended way is to do this from `crontab` at reboot.
 
 	crontab -e
-	@reboot XAUTHTOKEN=35A6E $HOME/src/cache-engine-lite/cache-engine-lite > cache-engine-lite.log 2>&1
+	@reboot XAUTHTOKEN=35A6E $HOME/cache-engine-lite/cache-engine-lite > cache-engine-lite.log 2>&1
 	
 ### Can I save the cache periodically?
 

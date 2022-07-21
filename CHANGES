@@ -21,3 +21,5 @@
 1.5.1-20210721
 - fix a bug in the concurrent map
 - add no CORS option
+1.6.0-20220721
+- add POST method to apiUpdateKey for persistent connections

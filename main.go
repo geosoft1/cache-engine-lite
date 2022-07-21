@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.5.1-20210721"
+var VERSION = "1.6.0-20220721"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -59,9 +59,9 @@ func main() {
 			if r.Header.Get("Cors-Control") != "no-cors" {
 				// open api need CORS
 				enableCORS(w)
-				if r.Method == "OPTIONS" {
-					return
-				}
+			}
+			if r.Method == "OPTIONS" {
+				return
 			}
 			next.ServeHTTP(w, r)
 		})
@@ -83,7 +83,7 @@ func main() {
 	adm.HandleFunc("/keys", admSaveKeys).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/keys", apiGetKeys).Methods("GET")
 	api.HandleFunc("/keys/{key}", apiGetKey).Methods("GET", "OPTIONS")
-	api.HandleFunc("/keys/{key}", apiUpdateKey).Methods("PUT")
+	api.HandleFunc("/keys/{key}", apiUpdateKey).Methods("PUT", "POST")
 	api.HandleFunc("/update", apiUpdateKeyQuery).Methods("GET")
 	api.HandleFunc("/version", apiGetVersion).Methods("GET")
 	// core servers
