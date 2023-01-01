@@ -183,8 +183,8 @@ Code|Description
 	{
 	    "37D4B": {
 	        "Tem": [
-	            "1",
-	            "2"
+	            1,
+	            2
 	        ]
 	    }
 	}
@@ -250,8 +250,8 @@ Code|Description
 	
 	{
 	    "Tem": [
-	        "1",
-	        "2"
+	        1,
+	        2
 	    ]
 	}
 
@@ -290,14 +290,14 @@ Code|Description
 	[
 	    {
 	        "Tem": [
-	            "1",
-	            "2"
+	            1,
+	            2
 	        ]
 	    },
 	    {
 	        "Tem": [
-	            "1",
-	            "3"
+	            1,
+	            3
 	        ]
 	    },
 	    null
@@ -321,7 +321,7 @@ Code|Description
 
 **Sample request:**
 
-	curl -X PUT -i "localhost:8080/keys/37D4B"  -d '{"Tem": [ "1", "2" ]}'
+	curl -X PUT -i "localhost:8080/keys/37D4B"  -d '{"Tem": [ 1, 2 ]}'
 
 **Sample response:**
 
@@ -366,6 +366,8 @@ Code|Description
 >Other party can't update a key until an administrator create one for him (see [Create a new key](#create-a-new-key)).
 
 >UTC timestamp is automatically added to the query as `_time_` in [RFC3339](https://golang.org/src/time/format.go?s=3825:3867#L62) or [RFC3339Nano](https://golang.org/src/time/format.go?s=3868:3919#L62) format.
+
+>Query string fields are converted to values according to the data type of each field.
 
 <div style="page-break-after: always;"></div>
 

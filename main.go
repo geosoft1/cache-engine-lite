@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var VERSION = "1.6.0-20220721"
+var VERSION = "1.7.0-20230101"
 
 var (
 	cacheFile    = flag.String("cache-file", "cache.json", "cache file name")
@@ -21,9 +21,7 @@ var (
 	httpsAddress = flag.String("https", ":8090", "https address")
 )
 
-type data = interface{}
-
-var cache = map[string]data{}
+var cache = map[string]any{}
 var m = sync.Mutex{}
 var api = mux.NewRouter().PathPrefix(os.Getenv("INSTANCEID")).Subrouter()
 var adm = api.PathPrefix("/admin").Subrouter()

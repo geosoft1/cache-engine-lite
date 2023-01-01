@@ -16,7 +16,7 @@ func apiUpdateKey(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
-	var data data
+	var data any
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -37,12 +37,14 @@ func apiUpdateKeyQuery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// map[string][]string -> map[string]interface{}
-	var data = map[string]data{}
+	var data = map[string]any{}
 	for k, v := range query {
 		if len(v) > 1 {
-			data[k] = v
+			// data[k] = v
+			data[k] = arrayToValues(v)
 		} else {
-			data[k] = v[0]
+			// data[k] = v[0]
+			data[k] = stringToValue(v[0])
 		}
 	}
 	cache[key] = data

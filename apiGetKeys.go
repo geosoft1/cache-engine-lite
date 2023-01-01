@@ -8,7 +8,7 @@ import (
 )
 
 func apiGetKeys(w http.ResponseWriter, r *http.Request) {
-	var grp []data
+	var grp []any
 	for _, key := range r.URL.Query()["key"] {
 		grp = append(grp, cache[key])
 	}

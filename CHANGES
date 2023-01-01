@@ -23,3 +23,5 @@
 - add no CORS option
 1.6.0-20220721
 - add POST method to apiUpdateKey for persistent connections
+1.7.0-20230101
+- query string fields are converted to values according to the data type of each field
