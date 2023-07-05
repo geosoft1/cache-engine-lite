@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
 <script>
-VERSION = "1.0.0-20200424"
+VERSION = "1.1.0-20230327"
 UUIDGENERATOR = 'https://www.uuidgenerator.net/api/guid'
 SERVERADDR = "http://localhost:8080"
 
@@ -253,6 +253,7 @@ app.controller('myCtrl', function($scope, $http) {
       <li class="w3-border-bottom" ng-if="key" ng-repeat="(key,val) in cache" id='{{key}}'>
         <span ng-click="DeleteKey(key)" class="w3-closebtn w3-padding w3-margin-right" ng-attr-title="Delete key"><i class="fa fa-times"></i></span>
         <p><span ng-click="ModifyKey(key,val)" class="w3-xlarge" ng-attr-title="{{JSONstringify(val)}}"><i class="fa fa-info-circle fa-lg"></i></span> 
+        <span>{{val._desc_}}</span>
         <p><span class="w3-xlarge">{{key}}</span>
       </li> 
     </ul>
