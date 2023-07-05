@@ -25,3 +25,5 @@
 - add POST method to apiUpdateKey for persistent connections
 1.7.0-20230101
 - query string fields are converted to values according to the data type of each field
+1.7.1-20230705
+- fix a bug in GetKeys api
